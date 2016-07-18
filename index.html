@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="modal">
+        <form action="#">
+            <label>
+                Add to-do
+                <input type="text" id="name">
+            </label>
+            <!--<label>
+                Set due date
+                <input type="date" id="date">
+            </label>-->
+            <label>
+                <textarea name="note" id="note" placeholder="add a note"></textarea>
+            </label>
+            <div class="button-group">
+                
+                <button id="save">Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="showdetail">
+        <form action="#" data-id="0">
+            <label>
+                Edit to-do
+                <input type="text" id="showdetail_name">
+            </label>
+            <label>
+                <p>Set due date</p>
+                <select name="date" id="day" >
+                          <option value="01">1</option>
+                          <option value="02">2</option>
+                          <option value="03">3</option>
+                          <option value="04">4</option>
+                          <option value="05">5</option>
+                          <option value="06">6</option>
+                          <option value="07">7</option>
+                          <option value="08">8</option>
+                          <option value="09">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                          <option value="22">22</option>
+                          <option value="23">23</option>
+                          <option value="24">24</option>
+                          <option value="25">25</option>
+                          <option value="26">26</option>
+                          <option value="27">27</option>
+                          <option value="28">28</option>
+                          <option value="29">29</option>
+                          <option value="30">30</option>
+                      </select> / <select name="date" id="month" >
+                          <option value="" disabled selected>Month</option>
+                          <option value="01">Jan</option>
+                          <option value="02">Feb</option>
+                          <option value="03">Mar</option>
+                          <option value="04">Apr</option>
+                          <option value="05">May</option>
+                          <option value="06">June</option>
+                          <option value="07">July</option>
+                          <option value="08">Aug</option>
+                          <option value="09">Sept</option>
+                          <option value="10">Oct</option>
+                          <option value="11">Nov</option>
+                          <option value="12">Dec</option>
+                      </select> /
+                      <select name="date" id="year">
+                          <option value="" disabled selected>Year</option>
+                          <option value="2018">2018</option>
+                          <option value="2017">2017</option>
+                          <option value="2016">2016</option>                       
+                      </select>
+            </label>
+            <label>
+                <textarea name="note" id="showdetail_note" placeholder="add a note"></textarea>
+            </label>
+            <div class="button-group">
+                <button id="showdetail_finished">Finished</button>
+                <button id="showdetail_save">Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="layer"></div>
+    <main>
+        <div class="navigation">
+          <section class="all-todos">
+            <div class="alltodoshow">
+                        <p class="all-todos-title">All Todos</p>
+                        <p class="number-title"></p>
+                    </div>
+            <div class="noduedateshow">No Due Date<span class="number-noduedate"></span>
+            </div>
+                <ul>
+                
+                    
+                </ul>
+          </section>
+            <!-- end all-todos -->
+          <section class="completed">
+                <p class="completed-title">Completed</p>
+                <div data-id="noduedate" class="noduedatecompleted">No due date</div>
+                <ul>
+                   
+                    
+                </ul>
+          </section>
+        </div>
+        <!-- end navigation -->
+
+        <div class="detail">
+            <a href="#" id="menu">
+                <img src="images/icon_menu.png" height="18" width="23" alt="">
+            </a>
+            <div class="detail-title">
+                All Todos
+                <p class="detail-number"></p>
+            </div>
+            <div class="addcolumn">
+                <p class="add">+ Add new to do</p>
+            </div>
+            <div class="add-todo">
+            </div>
+        </div>
+        <!-- end detail -->
+
+        <script type="text/x-handlebars" id="navcomplete">
+          
+          {{#each monthArr}}
+           <li class='completeshow' data-month="{{month}}">{{month}}</li>
+          {{/each}}
+         
+                        
+        </script>
+
+
+        <script type="text/x-handlebars" id="navnotcomplete">
+           <div class="alltodoshow">
+                        <p class="all-todos-title">All Todos</p>
+                        <p class="number-title">{{todoCount}}</p>
+                    </div>
+            <div class="noduedateshow">No Due Date<span class="number-noduedate">{{noduedateCount}}</span>
+            </div>
+              {{#if monthArr}}
+              
+                <ul>
+
+                    {{#each monthArr}}
+                      {{#if month}}
+                    <li class='unselected' data-month={{month}}>{{month}}
+                    </li>
+                      {{/if}}
+                    {{/each}}
+                </ul>
+              {{/if}}  
+          </section>
+        </script>
+
+          
+        <script type="text/x-handlebars" id="todotemplate">
+            {{#each todoitem}}
+            <div class="column" data-id={{id}}>
+
+                <input type="checkbox" name="todo" id={{id}} {{#if completed}}checked{{/if}}>
+
+                <label for={{id}} class="check"></label><span class="item">{{name}}</span>
+                 <span class="spanduedate">{{duedate}}</span>
+                <img src="images/icon_trash.png" height="17" width="16" class="deleteItem" >
+            </div>
+            {{/each}}
+        </script>
+
+        
+        
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="handlebars.js"></script>
+    <script src="todo.js"></script>
+    
+</body>
+
+</html>
